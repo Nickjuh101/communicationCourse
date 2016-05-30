@@ -1,4 +1,4 @@
-package com.example.nick.communicationcourse;
+package com.hva.iot.ibeaconscan;
 
 import org.junit.Test;
 

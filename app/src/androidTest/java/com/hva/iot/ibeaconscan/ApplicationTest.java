@@ -1,4 +1,4 @@
-package com.example.nick.communicationcourse;
+package com.hva.iot.ibeaconscan;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
