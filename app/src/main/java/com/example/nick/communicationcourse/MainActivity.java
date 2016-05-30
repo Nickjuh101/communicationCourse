@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
                 double accuracy = calculateDistance(contents, mRssi);
                 String distance = getDistance(accuracy);
-                mTextView.setText(distance);
+                mTextView.setText(mRssi);
             }
 
             public double calculateDistance(int txPower, double rssi) {
