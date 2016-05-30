@@ -166,12 +166,12 @@ public class MainActivity extends AppCompatActivity {
                 //Here is your Major value
                 int major = (scanRecord[startByte+20] & 0xff) * 0x100 + (scanRecord[startByte+21] & 0xff);
 
-                mMajorFieldTextview.setText(major);
+                mMajorFieldTextview.setText("" + major);
 
                 //Here is your Minor value
                 int minor = (scanRecord[startByte+22] & 0xff) * 0x100 + (scanRecord[startByte+23] & 0xff);
 
-                mMinorFieldTextview.setText(minor);
+                mMinorFieldTextview.setText("" + minor);
             }
         }
     };
