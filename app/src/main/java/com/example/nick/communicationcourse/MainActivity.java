@@ -1,5 +1,6 @@
 package com.example.nick.communicationcourse;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.BluetoothLeScanner;
@@ -8,10 +9,12 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanRecord;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
+import android.nfc.Tag;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.bluetooth.*;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,6 +29,8 @@ import java.util.UUID;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MyActivity";
+
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothLeScanner mBluetoothLeScanner;
 
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
       protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.activity_main);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -103,9 +109,12 @@ public class MainActivity extends AppCompatActivity {
                 int mRssi = result.getRssi();
                 int contents = result.describeContents();
 
+                Log.i(TAG, "" + mRssi);
+
+
                 double accuracy = calculateDistance(contents, mRssi);
                 String distance = getDistance(accuracy);
-                mTextView.setText(mRssi);
+                mTextView.setText("" + mRssi);
             }
 
             public double calculateDistance(int txPower, double rssi) {
