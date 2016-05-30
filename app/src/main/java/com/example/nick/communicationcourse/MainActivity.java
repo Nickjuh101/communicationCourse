@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.bluetooth.*;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ScanSettings mScanSettings;
 
     private Button mStartScanButton;
+    private TextView mTextView;
 
 
     @Override
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setScanSettings();
 
         mStartScanButton = (Button)findViewById(R.id.startScanButton);
+        mTextView = (TextView)findViewById(R.id.somethingTextView);
 
         mStartScanButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
                 int[] manufacturerData = array;
                 int mRssi = result.getRssi();
                 int contents = result.describeContents();
+
+                double accuracy = calculateDistance(contents, mRssi);
+                String distance = getDistance(accuracy);
+                mTextView.setText(distance);
             }
 
             public double calculateDistance(int txPower, double rssi) {
@@ -118,17 +125,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//    private String getDistance(accuracy) {
-//        if (accuracy == -1.0) {
-//            return "Unknown";
-//        } else if (accuracy < 1) {
-//            return "Immediate";
-//        } else if (accuracy < 3) {
-//            return "Near";
-//        } else {
-//            return "Far";
-//        }
-//    }
+    private String getDistance(double accuracy) {
+        if (accuracy == -1.0) {
+            return "Unknown";
+        } else if (accuracy < 1) {
+            return "Immediate";
+        } else if (accuracy < 3) {
+            return "Near";
+        } else {
+            return "Far";
+        }
+    }
 
     public byte[] getIdAsByte(UUID uuid)
     {

@@ -15,4 +15,12 @@
         android:layout_height="wrap_content"
         android:text="Start Scan"
         android:id="@+id/startScanButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Something"
+        android:id="@+id/somethingTextView" />
+
+
 </LinearLayout>
