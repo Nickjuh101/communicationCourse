@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * Checks if Bluetooth is enabled on device
-         * Use this within and Activity
          */
         if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
             Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -109,30 +108,18 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
                 } else {
 
                     Toast.makeText(MainActivity.this, "No Permission", Toast.LENGTH_LONG).show();
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 
     private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
-            /**
-             * We'll look at this bit in a minute
-             */
             int startByte = 2;
             boolean patternFound = false;
             while (startByte <= 5) {
@@ -150,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 System.arraycopy(scanRecord, startByte+4, uuidBytes, 0, 16);
                 String hexString = bytesToHex(uuidBytes);
 
-                //Here is your UUID
+                //UUID
                 String uuid =  hexString.substring(0,8) + "-" +
                         hexString.substring(8,12) + "-" +
                         hexString.substring(12,16) + "-" +
@@ -159,12 +146,12 @@ public class MainActivity extends AppCompatActivity {
 
                 mUUIDFieldTextview.setText(uuid);
 
-                //Here is your Major value
+                //Major value
                 int major = (scanRecord[startByte+20] & 0xff) * 0x100 + (scanRecord[startByte+21] & 0xff);
 
                 mMajorFieldTextview.setText("" + major);
 
-                //Here is your Minor value
+                //Minor value
                 int minor = (scanRecord[startByte+22] & 0xff) * 0x100 + (scanRecord[startByte+23] & 0xff);
 
                 mMinorFieldTextview.setText("" + minor);
@@ -172,13 +159,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
-
-    /**
-     * bytesToHex method
-     * Found on the internet
-     * http://stackoverflow.com/a/9855338
-     */
     static final char[] hexArray = "0123456789ABCDEF".toCharArray();
     private static String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
